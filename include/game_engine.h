@@ -1,7 +1,7 @@
 #pragma once
 
 #include <stdio.h>
-#include <stdlib.h>//6666
+#include <stdlib.h>
 #include <string.h>
 #include <time.h>
 
