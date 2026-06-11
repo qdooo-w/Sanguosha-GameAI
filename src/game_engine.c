@@ -357,8 +357,8 @@ void apply_card_effect(GameState* gs, int user_idx, Card card, int target_idx) {
 
                 /* 推送过河拆桥事件 */
                 char msg[128];
-                const char* user_name = (user_idx == 0) ? "玩家" : "AI";
-                const char* target_name = (target_idx == 0) ? "玩家" : "AI";
+                const char* user_name = (user_idx == 0) ? "玩家" : (user_idx == 1) ? "AI1" : "AI2";
+                const char* target_name = (target_idx == 0) ? "玩家" : (target_idx == 1) ? "AI1" : "AI2";
                 const char* card_name = "";
                 switch (removed_type) {
                     case CARD_SHA:    card_name = "杀"; break;
@@ -627,7 +627,7 @@ int game_resolve_shan(GameState* gs, int shan_card_idx, int use_sha_as_shan) {
 
     /* 推送闪响应事件 */
     char msg[128];
-    const char* target_name = (gs->shan_target == 0) ? "玩家" : "AI";
+    const char* target_name = (gs->shan_target == 0) ? "玩家" : (gs->shan_target == 1) ? "AI1" : "AI2";
     if (blocked) {
         if (use_sha_as_shan) {
             snprintf(msg, sizeof(msg), "%s 用【杀】当【闪】响应！", target_name);

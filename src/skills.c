@@ -36,9 +36,11 @@ int skill_watch_stars(GameState* gs, int actor_idx, Card* out_top, int* out_coun
 void skill_watch_stars_apply(GameState* gs, Card* new_order, int count) {
     if (gs == NULL || new_order == NULL || count <= 0 || count > gs->pile_count) return;
 
-    Card* start = &gs->draw_pile[gs->pile_count - count];
+    // new_order[0] 是新的牌堆顶，应该放到 gs->draw_pile[gs->pile_count - 1]
+    // new_order[1] 是第二张，放到 gs->draw_pile[gs->pile_count - 2]
+    // 以此类推
     for (int i = 0; i < count; i++)
-        start[i] = new_order[i];
+        gs->draw_pile[gs->pile_count - 1 - i] = new_order[i];
 }
 
 int skill_empty_city_blocks_sha(GameState* gs, int target_idx) {

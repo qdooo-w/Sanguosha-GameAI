@@ -2,11 +2,11 @@
 #include "game_engine.h"
 
 // ========== 概率常量 ==========
-#define PSYCH_SHOW_RATE_SHA      0.60   // 出杀显示心理活动概率
-#define PSYCH_SHOW_RATE_TAO      0.50   // 出桃显示概率
-#define PSYCH_SHOW_RATE_GUO_WU   0.40   // 过拆/无中显示概率
-#define PSYCH_SHOW_RATE_PASS     0.30   // 结束回合显示概率
-#define PSYCH_SHOW_RATE_SKIP     0.70   // 跳过出牌显示概率
+#define PSYCH_SHOW_RATE_SHA      0.30   // 出杀显示心理活动概率
+#define PSYCH_SHOW_RATE_TAO      0.25   // 出桃显示概率
+#define PSYCH_SHOW_RATE_GUO_WU   0.20   // 过拆/无中显示概率
+#define PSYCH_SHOW_RATE_PASS     0.15   // 结束回合显示概率
+#define PSYCH_SHOW_RATE_SKIP     0.35   // 跳过出牌显示概率
 
 #define THINKING_RATE            0.35   // 思考中模式触发概率
 #define THINKING_MIN_MS          1500

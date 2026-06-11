@@ -649,7 +649,28 @@ static int draw_choice_card(Rectangle r, const char* title, const char* desc,
     DrawRectangleRec(r, bg);
     DrawRectangleLinesEx(r, selected ? 3 : 2, selected ? GOLD : BLACK);
     DrawCN(title, (int)r.x + 16, (int)r.y + 14, 26, RAYWHITE);
-    if (desc) DrawCN(desc, (int)r.x + 16, (int)r.y + 50, 16, LIGHTGRAY);
+    if (desc) {
+        int dy = 0;
+        const char* p = desc;
+        const char* line_start = p;
+        char buf[256];
+        while (*p) {
+            if (*p == '\n') {
+                int len = p - line_start;
+                if (len > 0) {
+                    strncpy(buf, line_start, len);
+                    buf[len] = '\0';
+                    DrawCN(buf, (int)r.x + 16, (int)r.y + 50 + dy, 16, LIGHTGRAY);
+                }
+                dy += 22;
+                p++;
+                line_start = p;
+            } else {
+                p++;
+            }
+        }
+        if (*line_start) DrawCN(line_start, (int)r.x + 16, (int)r.y + 50 + dy, 16, LIGHTGRAY);
+    }
     return hover && IsMouseButtonPressed(MOUSE_LEFT_BUTTON);
 }
 
@@ -722,6 +743,13 @@ int ui_show_menu(MenuChoice* out) {
             DrawCN(steps[i], 80 + i * 220, 110, 20, c);
         }
 
+        /* 制作者信息 */
+        DrawCN("院系：健雄书院", 20, WIN_H - 85, 16, LIGHTGRAY);
+        DrawCN("学号：251880412 姓名：王志博", 20, WIN_H - 65, 16, LIGHTGRAY);
+        DrawCN("学号：251880346 姓名：邓锐明", 20, WIN_H - 45, 16, LIGHTGRAY);
+        DrawCN("学号：251880517 姓名：吴天浩", WIN_W/2 + 20, WIN_H - 65, 16, LIGHTGRAY);
+        DrawCN("学号：251880105 姓名：郑旭晨", WIN_W/2 + 20, WIN_H - 45, 16, LIGHTGRAY);
+
         if (step == 0) {
             /* 模式 */
             Rectangle r1 = {WIN_W/2 - 380, 200, 360, 140};
@@ -784,7 +812,7 @@ int ui_show_menu(MenuChoice* out) {
             const char* descs[] = {
                 "咆哮：使用【杀】无次数限制",
                 "龙胆：杀闪可互相转化",
-                "观星 + 空城：调整牌堆顶；无手牌时不能成为杀的目标"
+                "观星：调整牌堆顶\n空城：无手牌时不能成为杀的目标"
             };
             for (int i = 0; i < 3; i++) {
                 Rectangle r = {80 + i * 290, 200, 260, 160};
